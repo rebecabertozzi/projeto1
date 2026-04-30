@@ -26,7 +26,7 @@ filmes = {
     "Romance": [
         {"nome": "Titanic", "duracao": "3h 14min", "imagem": "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg"},
          {"nome": "Diário de uma Paixão", "duracao": "2h 3min", "imagem": "https://upload.wikimedia.org/wikipedia/en/8/86/Posternotebook.jpg"},
-        {"nome": "Simplesmente Acontece", "duracao": "1h 42min", "imagem": "https://upload.wikimedia.org/wikipedia/en/1/1c/Love%2C_Rosie_poster.jpg"},
+        {"nome": "Meia-Noite em Paris", "duracao": "1h 34min", "imagem": "https://image.tmdb.org/t/p/w500/4wBG5kbfagTQclETblPRRGihk0I.jpg"},
         {"nome": "La La Land", "duracao": "2h 8min", "imagem": "https://image.tmdb.org/t/p/w500/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg"}
     ],
     "Terror": [
