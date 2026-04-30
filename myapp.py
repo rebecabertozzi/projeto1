@@ -58,13 +58,13 @@ genero = st.selectbox("Escolha um gênero:", list(filmes.keys()))
 if "recomendacoes" not in st.session_state:
     st.session_state.recomendacoes = []
 
-def sortear_filmes():
+def sortear():
     lista = filmes[genero].copy()
     random.shuffle(lista)
     return lista[:3]
 
 if st.button("Recomendar 🎥"):
-    st.session_state.recomendacoes = sortear_filmes()
+    st.session_state.recomendacoes = sortear()
 
 if st.session_state.recomendacoes:
     st.subheader("🍿 Sugestões para você:")
@@ -74,5 +74,5 @@ if st.session_state.recomendacoes:
         st.image(filme["imagem"])
 
     if st.button("Não gostei, tentar de novo 🔄"):
-        st.session_state.recomendacoes = sortear_filmes()
+        st.session_state.recomendacoes = sortear()
         st.rerun()
