@@ -48,13 +48,13 @@ genero = st.selectbox("Escolha um gênero:", list(filmes.keys()))
 if "fila" not in st.session_state:
     st.session_state.fila = []
 
-def carregar_filmes():
+def carregar():
     lista = filmes[genero].copy()
     random.shuffle(lista)
     return lista
 
 if st.button("Começar 🎬"):
-    st.session_state.fila = carregar_filmes()
+    st.session_state.fila = carregar()
 
 if st.session_state.fila:
     filme = st.session_state.fila[0]
@@ -62,9 +62,9 @@ if st.session_state.fila:
     st.write(f"🎬 {filme['nome']} — ⏱️ {filme['duracao']}")
 
     try:
-        st.image(filme["imagem"])
+        st.image(filme["imagem"], width=250)
     except:
-        st.warning("Imagem não carregou, mas o filme está disponível!")
+        st.image("https://via.placeholder.com/250x350?text=Imagem+indisponivel")
 
     if st.button("Não gostei, mostrar outro 🔄"):
         st.session_state.fila.pop(0)
