@@ -12,28 +12,28 @@ st.write("Escolha um gênero e descubra um filme!")
 
 filmes = {
     "Ação": [
-        {"nome": "John Wick", "duracao": "1h 41min", "imagem": "https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E4VFb.jpg"},
         {"nome": "Gladiador", "duracao": "2h 35min", "imagem": "https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg"},
         {"nome": "Batman: O Cavaleiro das Trevas", "duracao": "2h 32min", "imagem": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg"},
-        {"nome": "Pantera Negra", "duracao": "2h 14min", "imagem": "https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg"}
+        {"nome": "Pantera Negra", "duracao": "2h 14min", "imagem": "https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg"},
+        {"nome": "Vingadores: Ultimato", "duracao": "3h 1min", "imagem": "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg"}
     ],
     "Comédia": [
-        {"nome": "As Branquelas", "duracao": "1h 49min", "imagem": "https://image.tmdb.org/t/p/w500/7rhzEufovf6srsd2b5sW0kSxK0L.jpg"},
         {"nome": "Se Beber, Não Case", "duracao": "1h 40min", "imagem": "https://image.tmdb.org/t/p/w500/uluhlXubGu1VxU63X9VHCLWDAYP.jpg"},
-        {"nome": "Click", "duracao": "1h 47min", "imagem": "https://image.tmdb.org/t/p/w500/5rL6dGZ0yW7h8TDIrS9KuX3sI5Y.jpg"},
-        {"nome": "Debi & Lóide", "duracao": "1h 47min", "imagem": "https://image.tmdb.org/t/p/w500/9Qw7h8Q3n1C0n8u9W1R9mX4pQ8P.jpg"}
+        {"nome": "Gente Grande", "duracao": "1h 42min", "imagem": "https://image.tmdb.org/t/p/w500/tmQKjHcZcR3pPpQ3h3zX5i7z3vV.jpg"},
+        {"nome": "Todo Mundo em Pânico", "duracao": "1h 28min", "imagem": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
+        {"nome": "Esposa de Mentirinha", "duracao": "1h 56min", "imagem": "https://image.tmdb.org/t/p/w500/e4fZ1sRkQn8g4w5zW0fvkYlCYwY.jpg"}
     ],
     "Romance": [
         {"nome": "Titanic", "duracao": "3h 14min", "imagem": "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg"},
         {"nome": "Diário de uma Paixão", "duracao": "2h 3min", "imagem": "https://image.tmdb.org/t/p/w500/qom1SZSENdmHFNZBXbtJAU0WTlC.jpg"},
-        {"nome": "Como Eu Era Antes de Você", "duracao": "1h 50min", "imagem": "https://image.tmdb.org/t/p/w500/7qHO1eOz5bPlM6DgFZ0Q8h4J0zV.jpg"},
+        {"nome": "A Culpa é das Estrelas", "duracao": "2h 6min", "imagem": "https://image.tmdb.org/t/p/w500/iB6GM6I2GJH0Zx8F6K5j3YF5d4E.jpg"},
         {"nome": "La La Land", "duracao": "2h 8min", "imagem": "https://image.tmdb.org/t/p/w500/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg"}
     ],
     "Terror": [
         {"nome": "Invocação do Mal", "duracao": "1h 52min", "imagem": "https://image.tmdb.org/t/p/w500/wVYREutTvI2tmxr6ujrHT704wGF.jpg"},
         {"nome": "Hereditário", "duracao": "2h 7min", "imagem": "https://image.tmdb.org/t/p/w500/lHV8HHlhwNup2VbpiACtlKzaGIQ.jpg"},
         {"nome": "O Exorcista", "duracao": "2h 2min", "imagem": "https://image.tmdb.org/t/p/w500/4ucLGcXVVSVnsfkGtbLY4XAius8.jpg"},
-        {"nome": "It: A Coisa", "duracao": "2h 15min", "imagem": "https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg"}
+        {"nome": "Corra!", "duracao": "1h 44min", "imagem": "https://image.tmdb.org/t/p/w500/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg"}
     ],
     "Animação": [
         {"nome": "Shrek", "duracao": "1h 30min", "imagem": "https://image.tmdb.org/t/p/w500/iB64vpL3dIObOtMZgX3RqdVdQDc.jpg"},
@@ -60,11 +60,7 @@ if st.session_state.fila:
     filme = st.session_state.fila[0]
 
     st.write(f"🎬 {filme['nome']} — ⏱️ {filme['duracao']}")
-
-    try:
-        st.image(filme["imagem"], width=250)
-    except:
-        st.image("https://via.placeholder.com/250x350?text=Imagem+indisponivel")
+    st.image(filme["imagem"], width=250)
 
     if st.button("Não gostei, mostrar outro 🔄"):
         st.session_state.fila.pop(0)
