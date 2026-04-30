@@ -19,14 +19,14 @@ filmes = {
     ],
     "Comédia": [
         {"nome": "Se Beber, Não Case", "duracao": "1h 40min", "imagem": "https://image.tmdb.org/t/p/w500/uluhlXubGu1VxU63X9VHCLWDAYP.jpg"},
-        {"nome": "Gente Grande", "duracao": "1h 42min", "imagem": "https://image.tmdb.org/t/p/w500/tmQKjHcZcR3pPpQ3h3zX5i7z3vV.jpg"},
+        {"nome": "Meninas Malvadas", "duracao": "1h 37min", "imagem": "https://upload.wikimedia.org/wikipedia/en/a/ac/Mean_Girls_film_poster.png"},
         {"nome": "Todo Mundo em Pânico", "duracao": "1h 28min", "imagem": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg"},
-        {"nome": "Esposa de Mentirinha", "duracao": "1h 56min", "imagem": "https://image.tmdb.org/t/p/w500/e4fZ1sRkQn8g4w5zW0fvkYlCYwY.jpg"}
+       {"nome": "Superbad", "duracao": "1h 53min", "imagem": "https://upload.wikimedia.org/wikipedia/en/8/8b/Superbad_Poster.png"}
     ],
     "Romance": [
         {"nome": "Titanic", "duracao": "3h 14min", "imagem": "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg"},
-        {"nome": "Diário de uma Paixão", "duracao": "2h 3min", "imagem": "https://image.tmdb.org/t/p/w500/qom1SZSENdmHFNZBXbtJAU0WTlC.jpg"},
-        {"nome": "A Culpa é das Estrelas", "duracao": "2h 6min", "imagem": "https://image.tmdb.org/t/p/w500/iB6GM6I2GJH0Zx8F6K5j3YF5d4E.jpg"},
+         {"nome": "Diário de uma Paixão", "duracao": "2h 3min", "imagem": "https://upload.wikimedia.org/wikipedia/en/8/86/Posternotebook.jpg"},
+        {"nome": "Simplesmente Acontece", "duracao": "1h 42min", "imagem": "https://upload.wikimedia.org/wikipedia/en/1/1c/Love%2C_Rosie_poster.jpg"},
         {"nome": "La La Land", "duracao": "2h 8min", "imagem": "https://image.tmdb.org/t/p/w500/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg"}
     ],
     "Terror": [
