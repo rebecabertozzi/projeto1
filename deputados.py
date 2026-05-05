@@ -1,5 +1,5 @@
 import streamlit as st
-import panda as pd
+import pandas as pd
 
 df = pd.read_csv('deputados_2022.csv')
 st.dataframe(df)
