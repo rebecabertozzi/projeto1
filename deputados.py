@@ -11,3 +11,13 @@ deputados_filtrados = df[df["partido"] == partido_selecionado]
 
 st.dataframe(deputados_filtrados)
 
+if sigla:
+  df_filtrado = df[df['partido']==sigla.upper()]
+else:
+  df_filtrado = df
+
+if uf:
+  f_filtrado = df_filtrado[df_filtrado['uf']==uf.upper()]
+
+st.dataframe(df_filtrado)
+
