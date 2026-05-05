@@ -1,25 +1,45 @@
 import streamlit as st
 import pandas as pd
 
-df = pd.read_csv('deputados_2022.csv')
+st.title("Consulta de Deputados 2022")
 
-partidos = df["partido"].unique()
+# ---- CARREGAMENTO ----
+try:
+    df = pd.read_csv('deputados_2022.csv')
+except Exception as e:
+    st.error(f"Erro ao carregar o arquivo: {e}")
+    st.stop()
 
-partido_selecionado = st.selectbox("Escolha um partido", partidos)
+# Padronizar colunas
+df.columns = df.columns.str.lower()
 
-deputados_filtrados = df[df["partido"] == partido_selecionado]
+# Verificar colunas necessárias
+if 'partido' not in df.columns or 'uf' not in df.columns:
+    st.error("O CSV precisa ter colunas chamadas 'partido' e 'uf'")
+    st.stop()
 
-st.dataframe(deputados_filtrados)
+# Padronizar valores
+df['partido'] = df['partido'].astype(str).str.upper()
+df['uf'] = df['uf'].astype(str).str.upper()
 
-partidos = st.text_input('Digite o partido que voce queira ver os deputados:')
-uf = st.text_input('Digite a UF')
+# ---- FILTROS ----
+lista_partidos = sorted(df["partido"].dropna().unique())
+partido_select = st.selectbox("Escolha um partido (opcional)", [""] + lista_partidos)
 
-if partido:
-  df_filtrado = df[df['partido']==partido.upper()]
-else:
-  df_filtrado = df
+partido_input = st.text_input("Ou digite o partido:")
+uf_input = st.text_input("Filtrar por UF:")
 
-if uf:
-  df_filtrado = df_filtrado[df_filtrado['uf']==uf.upper()]
+# ---- FILTRAGEM ----
+df_filtrado = df.copy()
 
+if partido_input:
+    df_filtrado = df_filtrado[df_filtrado['partido'] == partido_input.upper()]
+elif partido_select:
+    df_filtrado = df_filtrado[df_filtrado['partido'] == partido_select]
+
+if uf_input:
+    df_filtrado = df_filtrado[df_filtrado['uf'] == uf_input.upper()]
+
+# ---- RESULTADO ----
+st.write(f"Total de registros: {len(df_filtrado)}")
 st.dataframe(df_filtrado)
