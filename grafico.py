@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from io import StringIO
 
-# Dados embutidos diretamente no código — sem depender de arquivo CSV externo
 CSV_DATA = """Marca,Avaliação Média (0-10),Nº de Produtos,Faixa de Preço Média (R$),Seguidores Instagram (milhões),Satisfação Clientes (%)
 MAC,9.1,2800,185,13.2,92
 Charlotte Tilbury,9.4,620,320,11.8,95
