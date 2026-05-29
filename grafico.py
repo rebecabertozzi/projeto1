@@ -18,7 +18,7 @@ Anastasia Beverly Hills,9.0,520,250,20.1,91"""
 
 df = pd.read_csv(StringIO(CSV_DATA), index_col="Marca")
 
-st.title("💄 Melhores Marcas de Maquiagem")
+st.title("Melhores Marcas de Maquiagem")
 st.markdown("Compare as principais marcas por diferentes indicadores.")
 
 coluna = st.selectbox("Escolha o indicador:", df.columns)
