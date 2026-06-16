@@ -55,7 +55,6 @@ st.markdown("""
         color: #aaa;
         margin-bottom: 0.5rem;
     }
-
     .post-preview-card {
         background: #fff;
         border: 1px solid #dbdbdb;
@@ -130,8 +129,8 @@ if "resultado" not in st.session_state:
     st.session_state.resultado = None
 if "image_b64" not in st.session_state:
     st.session_state.image_b64 = None
-if "gerou" not in st.session_state:
-    st.session_state.gerou = False
+if "params" not in st.session_state:
+    st.session_state.params = None
 
 
 # ─────────────────────────────────────────────
@@ -302,9 +301,7 @@ Formato:
         content = [
             {
                 "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/png;base64,{image_b64}"
-                }
+                "image_url": {"url": f"data:image/png;base64,{image_b64}"}
             },
             {
                 "type": "text",
@@ -386,45 +383,54 @@ def exibir_resultados(resultado, image_b64):
 
 
 # ─────────────────────────────────────────────
-# Botões de ação
+# Botão principal — Gerar Legendas
 # ─────────────────────────────────────────────
-col_gerar, col_novas, col_recomecar = st.columns([2, 2, 1])
-
-with col_gerar:
-    gerar = st.button("✨ Gerar Legendas", type="primary", use_container_width=True)
-
-with col_novas:
-    novas = st.button(
-        "🔄 Gerar Novas Opções",
-        use_container_width=True,
-        disabled=not st.session_state.gerou,
-        help="Gera 3 novas legendas para a mesma imagem e configurações"
-    )
-
-with col_recomecar:
-    recomecar = st.button("🗑️ Recomeçar", use_container_width=True, help="Limpa tudo e começa do zero")
-
-
-# ─────────────────────────────────────────────
-# Lógica dos botões
-# ─────────────────────────────────────────────
-if recomecar:
-    st.session_state.resultado = None
-    st.session_state.image_b64 = None
-    st.session_state.gerou = False
-    st.rerun()
-
-if gerar or novas:
+if st.button("✨ Gerar Legendas", type="primary", use_container_width=True):
     with st.spinner("Gerando suas legendas com IA..."):
         try:
-            img = st.session_state.image_b64 if novas else image_b64
-            resultado = gerar_legendas(objetivo, rede_social, tom, publico, contexto, img)
+            resultado = gerar_legendas(objetivo, rede_social, tom, publico, contexto, image_b64)
             st.session_state.resultado = resultado
-            st.session_state.gerou = True
+            st.session_state.params = {
+                "objetivo": objetivo,
+                "rede_social": rede_social,
+                "tom": tom,
+                "publico": publico,
+                "contexto": contexto,
+            }
         except json.JSONDecodeError:
             st.error("❌ Erro ao interpretar a resposta da IA. Tente novamente.")
         except Exception as e:
             st.error(f"❌ Erro: {str(e)}")
 
+# ─────────────────────────────────────────────
+# Exibir resultados + botões pós-geração
+# ─────────────────────────────────────────────
 if st.session_state.resultado:
     exibir_resultados(st.session_state.resultado, st.session_state.image_b64 or image_b64)
+
+    st.divider()
+    col_novas, col_recomecar = st.columns([2, 1])
+
+    with col_novas:
+        if st.button("🔄 Gerar Novas Opções", use_container_width=True, help="Gera 3 novas legendas para a mesma imagem e configurações"):
+            with st.spinner("Gerando novas legendas..."):
+                try:
+                    p = st.session_state.params
+                    novo_resultado = gerar_legendas(
+                        p["objetivo"], p["rede_social"], p["tom"],
+                        p["publico"], p["contexto"],
+                        st.session_state.image_b64
+                    )
+                    st.session_state.resultado = novo_resultado
+                    st.rerun()
+                except json.JSONDecodeError:
+                    st.error("❌ Erro ao interpretar a resposta da IA. Tente novamente.")
+                except Exception as e:
+                    st.error(f"❌ Erro: {str(e)}")
+
+    with col_recomecar:
+        if st.button("🗑️ Recomeçar", use_container_width=True, help="Limpa tudo e começa do zero"):
+            st.session_state.resultado = None
+            st.session_state.image_b64 = None
+            st.session_state.params = None
+            st.rerun()
