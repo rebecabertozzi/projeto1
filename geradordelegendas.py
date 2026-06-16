@@ -9,6 +9,7 @@ import base64
 client = Groq(
     api_key=st.secrets["GROQ_API_KEY"]
 )
+
 # ─────────────────────────────────────────────
 # Configuração da página
 # ─────────────────────────────────────────────
@@ -36,26 +37,6 @@ st.markdown("""
         font-size: 1rem;
         margin-bottom: 1.5rem;
     }
-    .legenda-box {
-        background: #f8f7ff;
-        border-left: 4px solid #7F77DD;
-        border-radius: 8px;
-        padding: 1rem 1.2rem;
-        margin-bottom: 1rem;
-    }
-    .legenda-estilo {
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: #7F77DD;
-        margin-bottom: 0.4rem;
-    }
-    .legenda-texto {
-        font-size: 1rem;
-        line-height: 1.6;
-        color: #1a1a1a;
-    }
     .hashtag-pill {
         display: inline-block;
         background: #EEEDFE;
@@ -75,7 +56,6 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
 
-    /* Preview do post estilo Instagram */
     .post-preview-card {
         background: #fff;
         border: 1px solid #dbdbdb;
@@ -129,7 +109,7 @@ st.markdown("""
 
 
 # ─────────────────────────────────────────────
-# Sidebar — informações
+# Sidebar
 # ─────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### ✦ Gerador de Legendas")
@@ -141,6 +121,17 @@ with st.sidebar:
     st.markdown("4. Copie a legenda favorita!")
     st.markdown("---")
     st.markdown("*Feito com Streamlit + Groq*")
+
+
+# ─────────────────────────────────────────────
+# Inicializar session_state
+# ─────────────────────────────────────────────
+if "resultado" not in st.session_state:
+    st.session_state.resultado = None
+if "image_b64" not in st.session_state:
+    st.session_state.image_b64 = None
+if "gerou" not in st.session_state:
+    st.session_state.gerou = False
 
 
 # ─────────────────────────────────────────────
@@ -162,7 +153,6 @@ uploaded_file = st.file_uploader(
     help="A IA irá analisar a imagem para gerar legendas mais contextuais"
 )
 
-image_obj = None
 image_b64 = None
 
 if uploaded_file:
@@ -171,6 +161,7 @@ if uploaded_file:
     buf = io.BytesIO()
     image_obj.save(buf, format="PNG")
     image_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+    st.session_state.image_b64 = image_b64
 
 st.divider()
 
@@ -241,7 +232,7 @@ st.divider()
 
 
 # ─────────────────────────────────────────────
-# Função auxiliar — preview do post
+# Funções auxiliares
 # ─────────────────────────────────────────────
 def render_post_preview(legenda_texto, hashtags, image_b64=None, username="seu_perfil"):
     hashtags_str = " ".join(hashtags) if hashtags else ""
@@ -265,15 +256,11 @@ def render_post_preview(legenda_texto, hashtags, image_b64=None, username="seu_p
     """, unsafe_allow_html=True)
 
 
-# ─────────────────────────────────────────────
-# Função principal — gerar legendas
-# ─────────────────────────────────────────────
 def gerar_legendas(objetivo, rede_social, tom, publico, contexto, image_b64):
-
     prompt = f"""
 Você é um especialista em marketing digital e copywriting.
 
-Crie 3 legendas para redes sociais.
+Crie 3 legendas DIFERENTES e CRIATIVAS para redes sociais. Seja variado e original, não repita estruturas.
 
 Objetivo: {objetivo}
 Rede social: {rede_social}
@@ -331,10 +318,8 @@ Formato:
 
     response = client.chat.completions.create(
         model=model,
-        messages=[
-            {"role": "user", "content": content}
-        ],
-        temperature=0.8,
+        messages=[{"role": "user", "content": content}],
+        temperature=0.95,
         max_tokens=1500,
         response_format={"type": "json_object"}
     )
@@ -349,73 +334,97 @@ Formato:
         raise
 
 
+def exibir_resultados(resultado, image_b64):
+    hashtags = resultado.get("hashtags", [])
+    legendas = resultado.get("legendas", [])
+
+    st.divider()
+    st.markdown('<p class="step-header">Passo 4 — Suas legendas</p>', unsafe_allow_html=True)
+
+    for i, leg in enumerate(legendas):
+        with st.expander(f"✦ {leg['estilo']}", expanded=True):
+            st.markdown("**Pré-visualização do post**")
+            render_post_preview(leg["texto"], hashtags, image_b64)
+
+            st.markdown("**Legenda completa**")
+            legenda_completa = leg["texto"] + "\n\n" + " ".join(hashtags)
+            st.text_area(
+                label="",
+                value=legenda_completa,
+                height=130,
+                key=f"legenda_{i}_{id(resultado)}",
+                help="Selecione o texto e copie (Ctrl+A, Ctrl+C)"
+            )
+            st.caption("Ou use o botão de cópia abaixo:")
+            st.code(legenda_completa, language=None)
+
+    if hashtags:
+        st.markdown("---")
+        st.markdown("**#️⃣ Hashtags sugeridas**")
+        pills_html = "".join(
+            f'<span class="hashtag-pill">{h}</span>' for h in hashtags
+        )
+        st.markdown(f'<div style="margin:0.5rem 0 1rem">{pills_html}</div>', unsafe_allow_html=True)
+        st.code(" ".join(hashtags), language=None)
+
+    st.divider()
+    st.markdown("**Histórico desta geração**")
+    df = pd.DataFrame(legendas)
+    df.insert(0, "Rede Social", rede_social)
+    df.insert(1, "Tom", tom)
+    df.insert(2, "Objetivo", objetivo)
+    st.dataframe(df, use_container_width=True)
+
+    csv = df.to_csv(index=False).encode("utf-8")
+    st.download_button(
+        label="Baixar como CSV",
+        data=csv,
+        file_name="legendas_geradas.csv",
+        mime="text/csv",
+        key=f"csv_{id(resultado)}"
+    )
+
+
 # ─────────────────────────────────────────────
-# Botão gerar + exibição dos resultados
+# Botões de ação
 # ─────────────────────────────────────────────
-if st.button("✨ Gerar Legendas", type="primary", use_container_width=True):
+col_gerar, col_novas, col_recomecar = st.columns([2, 2, 1])
+
+with col_gerar:
+    gerar = st.button("✨ Gerar Legendas", type="primary", use_container_width=True)
+
+with col_novas:
+    novas = st.button(
+        "🔄 Gerar Novas Opções",
+        use_container_width=True,
+        disabled=not st.session_state.gerou,
+        help="Gera 3 novas legendas para a mesma imagem e configurações"
+    )
+
+with col_recomecar:
+    recomecar = st.button("🗑️ Recomeçar", use_container_width=True, help="Limpa tudo e começa do zero")
+
+
+# ─────────────────────────────────────────────
+# Lógica dos botões
+# ─────────────────────────────────────────────
+if recomecar:
+    st.session_state.resultado = None
+    st.session_state.image_b64 = None
+    st.session_state.gerou = False
+    st.rerun()
+
+if gerar or novas:
     with st.spinner("Gerando suas legendas com IA..."):
         try:
-            resultado = gerar_legendas(
-                objetivo, rede_social, tom, publico, contexto, image_b64
-            )
-
-            hashtags = resultado.get("hashtags", [])
-            legendas = resultado.get("legendas", [])
-
-            st.divider()
-            st.markdown('<p class="step-header">Passo 4 — Suas legendas</p>', unsafe_allow_html=True)
-
-            # ── Exibir cada legenda com preview e botão copiar ──
-            for i, leg in enumerate(legendas):
-                with st.expander(f"✦ {leg['estilo']}", expanded=True):
-
-                    # Preview do post
-                    st.markdown("**Pré-visualização do post**")
-                    render_post_preview(leg["texto"], hashtags, image_b64)
-
-                    # Caixa de texto com a legenda (fácil de copiar)
-                    st.markdown("**Legenda completa**")
-                    legenda_completa = leg["texto"] + "\n\n" + " ".join(hashtags)
-                    st.text_area(
-                        label="",
-                        value=legenda_completa,
-                        height=130,
-                        key=f"legenda_{i}",
-                        help="Selecione o texto e copie (Ctrl+A, Ctrl+C)"
-                    )
-
-                    # Botão de copiar (via st.code — clique no ícone de cópia)
-                    st.caption("Ou use o botão de cópia abaixo:")
-                    st.code(legenda_completa, language=None)
-
-            # ── Hashtags separadas ──
-            if hashtags:
-                st.markdown("---")
-                st.markdown("**#️⃣ Hashtags sugeridas**")
-                pills_html = "".join(
-                    f'<span class="hashtag-pill">{h}</span>' for h in hashtags
-                )
-                st.markdown(f'<div style="margin:0.5rem 0 1rem">{pills_html}</div>', unsafe_allow_html=True)
-                st.code(" ".join(hashtags), language=None)
-
-            # ── Histórico / CSV ──
-            st.divider()
-            st.markdown("**Histórico desta geração**")
-            df = pd.DataFrame(legendas)
-            df.insert(0, "Rede Social", rede_social)
-            df.insert(1, "Tom", tom)
-            df.insert(2, "Objetivo", objetivo)
-            st.dataframe(df, use_container_width=True)
-
-            csv = df.to_csv(index=False).encode("utf-8")
-            st.download_button(
-                label="Baixar como CSV",
-                data=csv,
-                file_name="legendas_geradas.csv",
-                mime="text/csv",
-            )
-
+            img = st.session_state.image_b64 if novas else image_b64
+            resultado = gerar_legendas(objetivo, rede_social, tom, publico, contexto, img)
+            st.session_state.resultado = resultado
+            st.session_state.gerou = True
         except json.JSONDecodeError:
             st.error("❌ Erro ao interpretar a resposta da IA. Tente novamente.")
         except Exception as e:
             st.error(f"❌ Erro: {str(e)}")
+
+if st.session_state.resultado:
+    exibir_resultados(st.session_state.resultado, st.session_state.image_b64 or image_b64)
