@@ -29,7 +29,7 @@ st.markdown("""
     }
 
     .stApp {
-        background: linear-gradient(180deg, #E9F7F0 0%, #F3FBF7 30%, #FFFFFF 70%);
+        background: linear-gradient(180deg, #EAF3FB 0%, #F4F9FD 30%, #FFFFFF 70%);
     }
 
     /* ── Header do app (logo + titulo) ── */
@@ -37,13 +37,13 @@ st.markdown("""
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-bottom: 0.3rem;
+        margin-bottom: 1.6rem;
     }
     .app-logo {
         width: 42px;
         height: 42px;
         border-radius: 12px;
-        background: linear-gradient(135deg, #7FD8A0, #5FAE82);
+        background: linear-gradient(135deg, #8FC2F2, #5B9BE0);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -57,26 +57,8 @@ st.markdown("""
         font-family: 'Poppins', sans-serif;
         font-weight: 700;
         font-size: 1.05rem;
-        color: #1E2A24;
+        color: #1E2733;
         line-height: 1.25;
-    }
-
-    .main-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: 2.1rem;
-        font-weight: 800;
-        margin: 1.2rem 0 0.3rem 0;
-        color: #1E2A24;
-        line-height: 1.2;
-    }
-    .main-title .accent {
-        color: #5FAE82;
-    }
-    .subtitle {
-        color: #6B8077;
-        font-size: 0.98rem;
-        margin-bottom: 1.6rem;
-        line-height: 1.5;
     }
 
     /* ── Brilho ao lado do header ── */
@@ -84,7 +66,7 @@ st.markdown("""
         display: inline-block;
         font-size: 1.1rem;
         margin-left: 6px;
-        color: #7FD8A0;
+        color: #5B9BE0;
         animation: sparkle-pulse 1.8s ease-in-out infinite;
     }
     @keyframes sparkle-pulse {
@@ -92,56 +74,82 @@ st.markdown("""
         50% { opacity: 1; transform: scale(1.15); }
     }
 
+    .main-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.1rem;
+        font-weight: 800;
+        margin: 0 0 0.3rem 0;
+        color: #1E2733;
+        line-height: 1.2;
+    }
+    .main-title .accent {
+        color: #5B9BE0;
+    }
+    .subtitle {
+        color: #6B7E8F;
+        font-size: 0.98rem;
+        margin-bottom: 1.6rem;
+        line-height: 1.5;
+    }
+
+    /* ── Linha fina separadora azul bebe ── */
+    .thin-divider {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #B8D8F5, transparent);
+        margin: 1.8rem 0;
+    }
+
     .hashtag-pill {
         display: inline-block;
-        background: #E3F5EA;
-        color: #2F8F5C;
+        background: #E8F2FC;
+        color: #2E6CA8;
         font-size: 0.8rem;
         font-weight: 600;
         padding: 4px 14px;
         border-radius: 99px;
         margin: 3px;
-        border: 1px solid #CDEBDA;
+        border: 1px solid #D2E8FA;
     }
     .step-header {
         font-family: 'Poppins', sans-serif;
         font-size: 1.05rem;
         font-weight: 700;
-        color: #1E2A24;
+        color: #1E2733;
         margin-bottom: 0.2rem;
     }
     .step-subtext {
         font-size: 0.85rem;
-        color: #8FA89B;
+        color: #8FA3B5;
         margin-bottom: 1.1rem;
     }
 
     .post-preview-card {
         background: #fff;
-        border: 1px solid #DDF0E4;
+        border: 1px solid #DCEBFA;
         border-radius: 16px;
         overflow: hidden;
         max-width: 400px;
         margin: 0 auto 1.5rem auto;
-        box-shadow: 0 4px 18px rgba(95, 174, 130, 0.12);
+        box-shadow: 0 4px 18px rgba(91, 155, 224, 0.12);
     }
     .post-preview-header {
         display: flex;
         align-items: center;
         gap: 10px;
         padding: 10px 14px;
-        border-bottom: 1px solid #F0FAF4;
+        border-bottom: 1px solid #F0F7FD;
     }
     .post-avatar {
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #7FD8A0, #6FA8F0);
+        background: linear-gradient(135deg, #8FC2F2, #6FA8E0);
     }
     .post-username {
         font-weight: 600;
         font-size: 0.85rem;
-        color: #1E2A24;
+        color: #1E2733;
     }
     .post-preview-image {
         width: 100%;
@@ -153,8 +161,8 @@ st.markdown("""
         padding: 12px 14px;
         font-size: 0.85rem;
         line-height: 1.5;
-        color: #1E2A24;
-        border-top: 1px solid #F0FAF4;
+        color: #1E2733;
+        border-top: 1px solid #F0F7FD;
     }
     .post-preview-caption b {
         font-weight: 600;
@@ -162,26 +170,16 @@ st.markdown("""
     .post-preview-hashtags {
         padding: 0 14px 12px;
         font-size: 0.8rem;
-        color: #2F8F5C;
+        color: #2E6CA8;
     }
 
-    /* Cards de secao */
-    .section-card {
-        background: #FFFFFF;
-        border: 1px solid #E3F5EA;
-        border-radius: 20px;
-        padding: 1.5rem 1.6rem;
-        margin-bottom: 1.2rem;
-        box-shadow: 0 2px 14px rgba(95, 174, 130, 0.08);
-    }
-
-    /* ── Cards numerados de legenda (estilo prototipo) ── */
+    /* ── Cards numerados de legenda ── */
     .legenda-card {
         display: flex;
         align-items: flex-start;
         gap: 14px;
-        background: #F7FCF9;
-        border: 1px solid #E3F5EA;
+        background: #F6FAFE;
+        border: 1px solid #DCEBFA;
         border-radius: 14px;
         padding: 1rem 1.1rem;
         margin-bottom: 0.9rem;
@@ -191,7 +189,7 @@ st.markdown("""
         height: 32px;
         min-width: 32px;
         border-radius: 9px;
-        background: linear-gradient(135deg, #7FD8A0, #5FAE82);
+        background: linear-gradient(135deg, #8FC2F2, #5B9BE0);
         color: white;
         font-family: 'Poppins', sans-serif;
         font-weight: 700;
@@ -208,68 +206,76 @@ st.markdown("""
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: #5FAE82;
+        color: #5B9BE0;
         margin-bottom: 4px;
     }
     .legenda-texto-preview {
         font-size: 0.88rem;
-        color: #1E2A24;
+        color: #1E2733;
         line-height: 1.5;
     }
 
-    /* Botoes primarios */
+    /* Cards de secao via st.container(border=True) */
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        border-radius: 18px !important;
+        border-color: #DCEBFA !important;
+        background: #FFFFFF;
+        box-shadow: 0 2px 14px rgba(91, 155, 224, 0.08);
+    }
+
+    /* Botoes primarios — azul bebe */
     div.stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #7FD8A0, #5FAE82);
+        background: linear-gradient(135deg, #8FC2F2, #5B9BE0);
         color: white;
         border: none;
         border-radius: 12px;
         font-weight: 700;
         padding: 0.6rem 1rem;
-        box-shadow: 0 4px 12px rgba(95, 174, 130, 0.35);
+        box-shadow: 0 4px 12px rgba(91, 155, 224, 0.35);
         transition: transform 0.15s ease;
     }
     div.stButton > button[kind="primary"]:hover {
         transform: translateY(-1px);
-        box-shadow: 0 6px 16px rgba(95, 174, 130, 0.45);
+        box-shadow: 0 6px 16px rgba(91, 155, 224, 0.45);
     }
 
-    /* Botoes secundarios — azul claro */
+    /* Botoes secundarios */
     div.stButton > button[kind="secondary"] {
         background: #FFFFFF;
         color: #3D6FD1;
-        border: 1.5px solid #A8C5F0;
+        border: 1.5px solid #B8D8F5;
         border-radius: 12px;
         font-weight: 600;
         padding: 0.6rem 1rem;
         transition: all 0.15s ease;
     }
     div.stButton > button[kind="secondary"]:hover {
-        background: #EEF4FE;
-        border-color: #6FA8F0;
+        background: #EEF6FE;
+        border-color: #8FC2F2;
     }
 
     div[data-baseweb="select"] > div {
         border-radius: 10px !important;
-        border-color: #DDF0E4 !important;
+        border-color: #DCEBFA !important;
     }
     textarea {
         border-radius: 10px !important;
     }
 
     section[data-testid="stFileUploaderDropzone"] {
-        background: #F4FBF8;
-        border: 2px dashed #A8E6C5;
+        background: #F4F9FD;
+        border: 2px dashed #B8D8F5;
         border-radius: 14px;
     }
 
     div[data-testid="stExpander"] {
-        border: 1px solid #E3F5EA !important;
+        border: 1px solid #DCEBFA !important;
         border-radius: 14px !important;
-        box-shadow: 0 2px 10px rgba(95, 174, 130, 0.06);
+        box-shadow: 0 2px 10px rgba(91, 155, 224, 0.06);
     }
 
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #E3F5EA 0%, #F4FBF8 100%);
+        background: linear-gradient(180deg, #E8F2FC 0%, #F4F9FD 100%);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -324,76 +330,78 @@ st.markdown('<p class="subtitle">Envie uma imagem, responda algumas perguntas e 
 # ─────────────────────────────────────────────
 # Passo 1 — Upload de imagem
 # ─────────────────────────────────────────────
-st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<p class="step-header">Envie a imagem do seu post</p>', unsafe_allow_html=True)
-st.markdown('<p class="step-subtext">Arraste e solte sua imagem aqui ou clique para selecionar</p>', unsafe_allow_html=True)
-uploaded_file = st.file_uploader(
-    "Imagem do post (opcional)",
-    type=["jpg", "jpeg", "png", "webp"],
-    label_visibility="collapsed",
-    key=f"uploader_{st.session_state.uploader_key}"
-)
+with st.container(border=True):
+    st.markdown('<p class="step-header">Envie a imagem do seu post</p>', unsafe_allow_html=True)
+    st.markdown('<p class="step-subtext">Arraste e solte sua imagem aqui ou clique para selecionar</p>', unsafe_allow_html=True)
+    uploaded_file = st.file_uploader(
+        "Imagem do post (opcional)",
+        type=["jpg", "jpeg", "png", "webp"],
+        label_visibility="collapsed",
+        key=f"uploader_{st.session_state.uploader_key}"
+    )
 
-image_b64 = None
+    image_b64 = None
 
-if uploaded_file:
-    image_obj = Image.open(uploaded_file)
-    st.image(image_obj, caption="Imagem carregada", use_column_width=True)
-    buf = io.BytesIO()
-    image_obj.save(buf, format="PNG")
-    image_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
-    st.session_state.image_b64 = image_b64
-st.markdown('</div>', unsafe_allow_html=True)
+    if uploaded_file:
+        image_obj = Image.open(uploaded_file)
+        st.image(image_obj, caption="Imagem carregada", use_column_width=True)
+        buf = io.BytesIO()
+        image_obj.save(buf, format="PNG")
+        image_b64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+        st.session_state.image_b64 = image_b64
+
+st.markdown('<hr class="thin-divider">', unsafe_allow_html=True)
 
 
 # ─────────────────────────────────────────────
 # Passo 2 — Quiz
 # ─────────────────────────────────────────────
-st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<p class="step-header">Responda algumas perguntas</p>', unsafe_allow_html=True)
-st.markdown('<p class="step-subtext">Isso vai nos ajudar a criar legendas perfeitas para voce!</p>', unsafe_allow_html=True)
+with st.container(border=True):
+    st.markdown('<p class="step-header">Responda algumas perguntas</p>', unsafe_allow_html=True)
+    st.markdown('<p class="step-subtext">Isso vai nos ajudar a criar legendas perfeitas para voce!</p>', unsafe_allow_html=True)
 
-objetivo = st.selectbox(
-    "Qual o objetivo da publicacao?",
-    options=[
-        "Vender ou promover um produto/servico",
-        "Engajar e interagir com a audiencia",
-        "Educar ou informar o publico",
-        "Inspirar e motivar",
-    ]
-)
+    objetivo = st.selectbox(
+        "Qual o objetivo da publicacao?",
+        options=[
+            "Vender ou promover um produto/servico",
+            "Engajar e interagir com a audiencia",
+            "Educar ou informar o publico",
+            "Inspirar e motivar",
+        ]
+    )
 
-tom = st.selectbox(
-    "Qual o estilo da legenda?",
-    options=[
-        "Engracado e descontraido",
-        "Profissional e formal",
-        "Motivacional e inspirador",
-        "Casual e amigavel",
-    ]
-)
+    tom = st.selectbox(
+        "Qual o estilo da legenda?",
+        options=[
+            "Engracado e descontraido",
+            "Profissional e formal",
+            "Motivacional e inspirador",
+            "Casual e amigavel",
+        ]
+    )
 
-publico = st.selectbox(
-    "Qual e o seu publico-alvo?",
-    options=[
-        "Jovens (18-25 anos)",
-        "Adultos (26-40 anos)",
-        "Empreendedores e profissionais",
-        "Publico geral",
-    ]
-)
+    publico = st.selectbox(
+        "Qual e o seu publico-alvo?",
+        options=[
+            "Jovens (18-25 anos)",
+            "Adultos (26-40 anos)",
+            "Empreendedores e profissionais",
+            "Publico geral",
+        ]
+    )
 
-rede_social = st.selectbox(
-    "Para qual rede social?",
-    options=["Instagram", "TikTok", "LinkedIn", "Twitter/X"]
-)
+    rede_social = st.selectbox(
+        "Para qual rede social?",
+        options=["Instagram", "TikTok", "LinkedIn", "Twitter/X"]
+    )
 
-contexto = st.text_area(
-    "Contexto extra (opcional)",
-    placeholder="Ex: lancamento de produto, promocao de fim de semana, dia do cliente...",
-    height=90,
-)
-st.markdown('</div>', unsafe_allow_html=True)
+    contexto = st.text_area(
+        "Contexto extra (opcional)",
+        placeholder="Ex: lancamento de produto, promocao de fim de semana, dia do cliente...",
+        height=90,
+    )
+
+st.markdown('<hr class="thin-divider">', unsafe_allow_html=True)
 
 
 # ─────────────────────────────────────────────
@@ -404,7 +412,7 @@ def render_post_preview(legenda_texto, hashtags, image_b64=None, username="seu_p
     if image_b64:
         img_html = f'<img class="post-preview-image" src="data:image/png;base64,{image_b64}" />'
     else:
-        img_html = '<div style="width:100%;aspect-ratio:1;background:linear-gradient(135deg,#E3F5EA,#A8E6C5);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#5FAE82;">sem imagem</div>'
+        img_html = '<div style="width:100%;aspect-ratio:1;background:linear-gradient(135deg,#E8F2FC,#B8D8F5);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#5B9BE0;">sem imagem</div>'
 
     st.markdown(f"""
     <div class="post-preview-card">
@@ -522,64 +530,63 @@ def exibir_resultados(resultado, image_b64):
     hashtags = resultado.get("hashtags", [])
     legendas = resultado.get("legendas", [])
 
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.markdown('<p class="step-header">Suas legendas estao prontas!</p>', unsafe_allow_html=True)
-    st.markdown('<p class="step-subtext">Confira as sugestoes criadas especialmente para voce.</p>', unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown('<p class="step-header">Suas legendas estao prontas!</p>', unsafe_allow_html=True)
+        st.markdown('<p class="step-subtext">Confira as sugestoes criadas especialmente para voce.</p>', unsafe_allow_html=True)
 
-    for i, leg in enumerate(legendas):
-        numero = f"{i+1:02d}"
-        st.markdown(f"""
-        <div class="legenda-card">
-            <div class="legenda-numero">{numero}</div>
-            <div class="legenda-conteudo">
-                <div class="legenda-estilo-tag">{leg['estilo']}</div>
-                <div class="legenda-texto-preview">{leg['texto']}</div>
+        for i, leg in enumerate(legendas):
+            numero = f"{i+1:02d}"
+            st.markdown(f"""
+            <div class="legenda-card">
+                <div class="legenda-numero">{numero}</div>
+                <div class="legenda-conteudo">
+                    <div class="legenda-estilo-tag">{leg['estilo']}</div>
+                    <div class="legenda-texto-preview">{leg['texto']}</div>
+                </div>
             </div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
-        with st.expander(f"Ver pre-visualizacao e copiar — opcao {numero}"):
-            st.markdown("**Pre-visualizacao do post**")
-            render_post_preview(leg["texto"], hashtags, image_b64)
+            with st.expander(f"Ver pre-visualizacao e copiar — opcao {numero}"):
+                st.markdown("**Pre-visualizacao do post**")
+                render_post_preview(leg["texto"], hashtags, image_b64)
 
-            st.markdown("**Legenda completa**")
-            legenda_completa = leg["texto"] + "\n\n" + " ".join(hashtags)
-            st.text_area(
-                label="",
-                value=legenda_completa,
-                height=130,
-                key=f"legenda_{i}_{id(resultado)}",
-                help="Selecione o texto e copie (Ctrl+A, Ctrl+C)"
+                st.markdown("**Legenda completa**")
+                legenda_completa = leg["texto"] + "\n\n" + " ".join(hashtags)
+                st.text_area(
+                    label="",
+                    value=legenda_completa,
+                    height=130,
+                    key=f"legenda_{i}_{id(resultado)}",
+                    help="Selecione o texto e copie (Ctrl+A, Ctrl+C)"
+                )
+                st.caption("Ou use o botao de copia abaixo:")
+                st.code(legenda_completa, language=None)
+
+        if hashtags:
+            st.markdown("---")
+            st.markdown("**Hashtags sugeridas**")
+            pills_html = "".join(
+                f'<span class="hashtag-pill">{h}</span>' for h in hashtags
             )
-            st.caption("Ou use o botao de copia abaixo:")
-            st.code(legenda_completa, language=None)
+            st.markdown(f'<div style="margin:0.5rem 0 1rem">{pills_html}</div>', unsafe_allow_html=True)
+            st.code(" ".join(hashtags), language=None)
 
-    if hashtags:
         st.markdown("---")
-        st.markdown("**Hashtags sugeridas**")
-        pills_html = "".join(
-            f'<span class="hashtag-pill">{h}</span>' for h in hashtags
+        st.markdown("**Historico desta geracao**")
+        df = pd.DataFrame(legendas)
+        df.insert(0, "Rede Social", rede_social)
+        df.insert(1, "Tom", tom)
+        df.insert(2, "Objetivo", objetivo)
+        st.dataframe(df, use_container_width=True)
+
+        csv = df.to_csv(index=False).encode("utf-8")
+        st.download_button(
+            label="Baixar como CSV",
+            data=csv,
+            file_name="legendas_geradas.csv",
+            mime="text/csv",
+            key=f"csv_{id(resultado)}"
         )
-        st.markdown(f'<div style="margin:0.5rem 0 1rem">{pills_html}</div>', unsafe_allow_html=True)
-        st.code(" ".join(hashtags), language=None)
-
-    st.markdown("---")
-    st.markdown("**Historico desta geracao**")
-    df = pd.DataFrame(legendas)
-    df.insert(0, "Rede Social", rede_social)
-    df.insert(1, "Tom", tom)
-    df.insert(2, "Objetivo", objetivo)
-    st.dataframe(df, use_container_width=True)
-
-    csv = df.to_csv(index=False).encode("utf-8")
-    st.download_button(
-        label="Baixar como CSV",
-        data=csv,
-        file_name="legendas_geradas.csv",
-        mime="text/csv",
-        key=f"csv_{id(resultado)}"
-    )
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ─────────────────────────────────────────────
@@ -611,6 +618,7 @@ if st.button("Gerar legendas", type="primary", use_container_width=True):
 # Resultados + botoes pos-geracao
 # ─────────────────────────────────────────────
 if st.session_state.resultado:
+    st.markdown('<hr class="thin-divider">', unsafe_allow_html=True)
     exibir_resultados(st.session_state.resultado, st.session_state.image_b64 or image_b64)
 
     col_novas, col_recomecar = st.columns([2, 1])
