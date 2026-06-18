@@ -217,7 +217,7 @@ st.markdown("""
 
 # ── Sidebar ──
 with st.sidebar:
-    st.markdown("###  Gerador de Legendas ")
+    st.markdown("### ✦ Gerador de Legendas ")
     st.markdown("**Crie legendas incríveis para suas redes sociais com IA ✦**")
     st.markdown("---")
     st.markdown("**Como usar:**")
@@ -234,7 +234,7 @@ st.markdown("""
 <div class="app-header">
     <div class="app-logo">#</div>
     <div class="app-header-text">
-        <p class="app-header-title"> Gerador de Legendas ✨<span style="color:#4A90D9;">com IA</span></p>
+        <p class="app-header-title"> Gerador de Legendas <span style="color:#4A90D9;">com IA</span></p>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -242,7 +242,7 @@ st.markdown("""
 # ── Hero ──
 st.markdown("""
 <div class="hero-section">
-    <p class="hero-title">Crie legendas incríveis para suas redes sociais com <span class="highlight">IA</span></p>
+    <p class="hero-title">Crie legendas incríveis para suas redes sociais com <span class="highlight">IA✨</span></p>
     <p class="hero-subtitle">Envie uma imagem, responda algumas perguntas e receba sugestões de legendas personalizadas para o seu conteúdo.</p>
 </div>
 """, unsafe_allow_html=True)
