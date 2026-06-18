@@ -76,8 +76,9 @@ st.markdown("""
     .step-title {
         font-family: 'Poppins', sans-serif;
         font-size: 0.95rem; font-weight: 700; color: #1E2733;
+        margin: 0; line-height: 1.2;
     }
-    .step-desc { font-size: 0.8rem; color: #7A94A8; margin-top: 1px; }
+    .step-desc { font-size: 0.8rem; color: #7A94A8; margin: 2px 0 0 0; }
 
     /* ── Upload zone ── */
     section[data-testid="stFileUploaderDropzone"] {
@@ -233,8 +234,7 @@ st.markdown("""
 <div class="app-header">
     <div class="app-logo">#</div>
     <div class="app-header-text">
-        <p class="app-header-title">Gerador Inteligente de Legendas</p>
-        <p class="app-header-sub">Powered by IA</p>
+        <p class="app-header-title">✨ Gerador de Legendas <span style="color:#4A90D9;">com IA</span></p>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -242,7 +242,7 @@ st.markdown("""
 # ── Hero ──
 st.markdown("""
 <div class="hero-section">
-    <p class="hero-title">Crie legendas incríveis<br>para suas redes sociais<br>com <span class="highlight">IA</span></p>
+    <p class="hero-title">Crie legendas incríveis para suas redes sociais com <span class="highlight">IA</span></p>
     <p class="hero-subtitle">Envie uma imagem, responda algumas perguntas e receba sugestões de legendas personalizadas para o seu conteúdo.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -261,7 +261,7 @@ v = st.session_state["form_version"]
 st.markdown("""
 <div class="step-label">
     <div class="step-number">1</div>
-    <div>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
         <p class="step-title">Imagem do post</p>
         <p class="step-desc">Envie a imagem que vai usar no post (opcional)</p>
     </div>
@@ -295,7 +295,7 @@ st.divider()
 st.markdown("""
 <div class="step-label">
     <div class="step-number">2</div>
-    <div>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
         <p class="step-title">Responda algumas perguntas</p>
         <p class="step-desc">Isso vai nos ajudar a criar legendas perfeitas para você!</p>
     </div>
@@ -305,7 +305,7 @@ st.markdown("""
 with st.container():
     col1, col2 = st.columns(2)
     with col1:
-        objetivo = st.selectbox("🎯  Qual o objetivo da publicação?", options=[
+        objetivo = st.selectbox("Qual o objetivo da publicação?", options=[
             "Escolha uma opção",
             "Vender ou promover um produto/serviço",
             "Engajar e interagir com a audiência",
@@ -313,7 +313,7 @@ with st.container():
             "Inspirar e motivar",
         ], key=f"objetivo_{v}")
     with col2:
-        rede_social = st.selectbox("📱  Rede social", options=[
+        rede_social = st.selectbox("Rede social", options=[
             "Escolha uma opção",
             "Instagram",
             "TikTok",
@@ -323,7 +323,7 @@ with st.container():
 
     col3, col4 = st.columns(2)
     with col3:
-        tom = st.selectbox("✏️  Qual o estilo da legenda?", options=[
+        tom = st.selectbox("Qual o estilo da legenda?", options=[
             "Escolha uma opção",
             "Engraçado e descontraído",
             "Profissional e formal",
@@ -331,7 +331,7 @@ with st.container():
             "Casual e amigável",
         ], key=f"tom_{v}")
     with col4:
-        publico = st.selectbox("👥  Qual é o seu público-alvo?", options=[
+        publico = st.selectbox("Qual é o seu público-alvo?", options=[
             "Escolha uma opção",
             "Jovens (18–25 anos)",
             "Adultos (26–40 anos)",
@@ -340,7 +340,7 @@ with st.container():
         ], key=f"publico_{v}")
 
     contexto = st.text_area(
-        "💬  Contexto extra (opcional)",
+        "Contexto extra (opcional)",
         placeholder="Ex: lançamento de produto, promoção de fim de semana...",
         height=90,
         key=f"contexto_{v}",
@@ -352,7 +352,7 @@ st.divider()
 st.markdown("""
 <div class="step-label">
     <div class="step-number">3</div>
-    <div>
+    <div style="display:flex;flex-direction:column;justify-content:center;">
         <p class="step-title">Quantas versões de legendas?</p>
         <p class="step-desc">Cada versão traz 3 legendas com estilos diferentes</p>
     </div>
@@ -509,7 +509,7 @@ if todos_resultados:
                 st.code(legenda_completa, language=None)
 
         if hashtags:
-            st.markdown("<p style='font-size:0.82rem;font-weight:700;color:#4A90D9;margin:0.8rem 0 0.4rem'>🏷️ Hashtags sugeridas</p>", unsafe_allow_html=True)
+            st.markdown("<p style='font-size:0.82rem;font-weight:700;color:#4A90D9;margin:0.8rem 0 0.4rem'> Hashtags sugeridas</p>", unsafe_allow_html=True)
             pills_html = "".join(f'<span class="hashtag-pill">{h}</span>' for h in hashtags)
             st.markdown(f'<div style="margin-bottom:1rem">{pills_html}</div>', unsafe_allow_html=True)
 
@@ -533,13 +533,13 @@ if todos_resultados:
 
     col_a, col_b = st.columns(2)
     with col_a:
-        if st.button("🔄  Gerar novas legendas", use_container_width=True):
+        if st.button("🔄 Recomeçar", use_container_width=True):
             st.session_state["resultados"] = None
             st.session_state["form_version"] += 1
             st.rerun()
     with col_b:
         st.download_button(
-            label="📋  Copiar todas (CSV)",
+            label=" Copiar todas (CSV)",
             data=csv,
             file_name="legendas_geradas.csv",
             mime="text/csv",
