@@ -79,51 +79,17 @@ st.markdown("""
         line-height: 1.5;
     }
 
-    /* ── Barra de passos numerados ── */
-    .steps-bar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0;
-        margin: 0.5rem 0 2rem 0;
+    /* ── Brilho ao lado do header ── */
+    .sparkle {
+        display: inline-block;
+        font-size: 1.1rem;
+        margin-left: 6px;
+        color: #7FD8A0;
+        animation: sparkle-pulse 1.8s ease-in-out infinite;
     }
-    .step-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-    }
-    .step-circle {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        font-size: 0.9rem;
-        color: white;
-        background: #C9E8D6;
-    }
-    .step-circle.active {
-        background: linear-gradient(135deg, #7FD8A0, #5FAE82);
-        box-shadow: 0 3px 10px rgba(95, 174, 130, 0.4);
-    }
-    .step-label {
-        font-size: 0.72rem;
-        font-weight: 600;
-        color: #8FA89B;
-    }
-    .step-label.active {
-        color: #2F8F5C;
-    }
-    .step-line {
-        width: 60px;
-        height: 2px;
-        background: #C9E8D6;
-        margin: 0 6px;
-        margin-bottom: 22px;
+    @keyframes sparkle-pulse {
+        0%, 100% { opacity: 0.5; transform: scale(0.9); }
+        50% { opacity: 1; transform: scale(1.15); }
     }
 
     .hashtag-pill {
@@ -343,33 +309,7 @@ if "uploader_key" not in st.session_state:
 st.markdown("""
 <div class="app-header">
     <div class="app-logo">#</div>
-    <div class="app-header-text">Gerador Inteligente<br/>de Legendas</div>
-</div>
-""", unsafe_allow_html=True)
-
-
-# ─────────────────────────────────────────────
-# Barra de passos numerados
-# ─────────────────────────────────────────────
-etapa_atual = 3 if st.session_state.resultado else 2
-
-def step_circle(numero, label, ativo):
-    classe_circulo = "step-circle active" if ativo else "step-circle"
-    classe_label = "step-label active" if ativo else "step-label"
-    return f"""
-    <div class="step-item">
-        <div class="{classe_circulo}">{numero}</div>
-        <div class="{classe_label}">{label}</div>
-    </div>
-    """
-
-st.markdown(f"""
-<div class="steps-bar">
-    {step_circle(1, "Imagem", True)}
-    <div class="step-line"></div>
-    {step_circle(2, "Quiz", etapa_atual >= 2)}
-    <div class="step-line"></div>
-    {step_circle(3, "Resultado", etapa_atual >= 3)}
+    <div class="app-header-text">Gerador Inteligente<br/>de Legendas <span class="sparkle">&#10024;</span></div>
 </div>
 """, unsafe_allow_html=True)
 
