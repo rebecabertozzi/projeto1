@@ -217,8 +217,8 @@ st.markdown("""
 
 # ── Sidebar ──
 with st.sidebar:
-    st.markdown("###  Gerador de Legendas ✦")
-    st.markdown("**Crie legendas incríveis para suas redes sociais com IA**")
+    st.markdown("###  Gerador de Legendas ")
+    st.markdown("**Crie legendas incríveis para suas redes sociais com IA ✦**")
     st.markdown("---")
     st.markdown("**Como usar:**")
     st.markdown("1. Envie uma imagem (opcional)")
