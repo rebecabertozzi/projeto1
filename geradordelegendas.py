@@ -15,35 +15,117 @@ client = Groq(
 # Configuração da página
 # ─────────────────────────────────────────────
 st.set_page_config(
-    page_title="Gerador de Legendas IA",
+    page_title="Gerador Inteligente de Legendas",
     page_icon="#",
     layout="centered",
 )
 
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
     }
 
-    /* Fundo geral com gradiente suave verde-água */
     .stApp {
-        background: linear-gradient(180deg, #EAF7F0 0%, #F4FBF8 35%, #FFFFFF 100%);
+        background: linear-gradient(180deg, #E9F7F0 0%, #F3FBF7 30%, #FFFFFF 70%);
+    }
+
+    /* ── Header do app (logo + titulo) ── */
+    .app-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 0.3rem;
+    }
+    .app-logo {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #7FD8A0, #5FAE82);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: 1.3rem;
+        color: white;
+        flex-shrink: 0;
+    }
+    .app-header-text {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #1E2A24;
+        line-height: 1.25;
     }
 
     .main-title {
+        font-family: 'Poppins', sans-serif;
         font-size: 2.1rem;
         font-weight: 800;
-        margin-bottom: 0.2rem;
+        margin: 1.2rem 0 0.3rem 0;
         color: #1E2A24;
+        line-height: 1.2;
+    }
+    .main-title .accent {
+        color: #5FAE82;
     }
     .subtitle {
         color: #6B8077;
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
+        font-size: 0.98rem;
+        margin-bottom: 1.6rem;
+        line-height: 1.5;
     }
+
+    /* ── Barra de passos numerados ── */
+    .steps-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        margin: 0.5rem 0 2rem 0;
+    }
+    .step-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+    .step-circle {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: white;
+        background: #C9E8D6;
+    }
+    .step-circle.active {
+        background: linear-gradient(135deg, #7FD8A0, #5FAE82);
+        box-shadow: 0 3px 10px rgba(95, 174, 130, 0.4);
+    }
+    .step-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #8FA89B;
+    }
+    .step-label.active {
+        color: #2F8F5C;
+    }
+    .step-line {
+        width: 60px;
+        height: 2px;
+        background: #C9E8D6;
+        margin: 0 6px;
+        margin-bottom: 22px;
+    }
+
     .hashtag-pill {
         display: inline-block;
         background: #E3F5EA;
@@ -56,13 +138,18 @@ st.markdown("""
         border: 1px solid #CDEBDA;
     }
     .step-header {
-        font-size: 0.72rem;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.05rem;
         font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #5FAE82;
-        margin-bottom: 0.5rem;
+        color: #1E2A24;
+        margin-bottom: 0.2rem;
     }
+    .step-subtext {
+        font-size: 0.85rem;
+        color: #8FA89B;
+        margin-bottom: 1.1rem;
+    }
+
     .post-preview-card {
         background: #fff;
         border: 1px solid #DDF0E4;
@@ -112,17 +199,59 @@ st.markdown("""
         color: #2F8F5C;
     }
 
-    /* Cards de secao (envolvem os passos) */
+    /* Cards de secao */
     .section-card {
         background: #FFFFFF;
         border: 1px solid #E3F5EA;
-        border-radius: 18px;
-        padding: 1.4rem 1.5rem;
+        border-radius: 20px;
+        padding: 1.5rem 1.6rem;
         margin-bottom: 1.2rem;
         box-shadow: 0 2px 14px rgba(95, 174, 130, 0.08);
     }
 
-    /* Botoes primarios — verde-agua */
+    /* ── Cards numerados de legenda (estilo prototipo) ── */
+    .legenda-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        background: #F7FCF9;
+        border: 1px solid #E3F5EA;
+        border-radius: 14px;
+        padding: 1rem 1.1rem;
+        margin-bottom: 0.9rem;
+    }
+    .legenda-numero {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, #7FD8A0, #5FAE82);
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .legenda-conteudo {
+        flex: 1;
+    }
+    .legenda-estilo-tag {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #5FAE82;
+        margin-bottom: 4px;
+    }
+    .legenda-texto-preview {
+        font-size: 0.88rem;
+        color: #1E2A24;
+        line-height: 1.5;
+    }
+
+    /* Botoes primarios */
     div.stButton > button[kind="primary"] {
         background: linear-gradient(135deg, #7FD8A0, #5FAE82);
         color: white;
@@ -153,7 +282,6 @@ st.markdown("""
         border-color: #6FA8F0;
     }
 
-    /* Selectbox e text_area com cantos arredondados */
     div[data-baseweb="select"] > div {
         border-radius: 10px !important;
         border-color: #DDF0E4 !important;
@@ -162,21 +290,18 @@ st.markdown("""
         border-radius: 10px !important;
     }
 
-    /* File uploader */
     section[data-testid="stFileUploaderDropzone"] {
         background: #F4FBF8;
         border: 2px dashed #A8E6C5;
         border-radius: 14px;
     }
 
-    /* Expander (legendas geradas) */
     div[data-testid="stExpander"] {
         border: 1px solid #E3F5EA !important;
         border-radius: 14px !important;
         box-shadow: 0 2px 10px rgba(95, 174, 130, 0.06);
     }
 
-    /* Sidebar */
     section[data-testid="stSidebar"] {
         background: linear-gradient(180deg, #E3F5EA 0%, #F4FBF8 100%);
     }
@@ -213,21 +338,59 @@ if "uploader_key" not in st.session_state:
 
 
 # ─────────────────────────────────────────────
+# Header (logo + nome do app)
+# ─────────────────────────────────────────────
+st.markdown("""
+<div class="app-header">
+    <div class="app-logo">#</div>
+    <div class="app-header-text">Gerador Inteligente<br/>de Legendas</div>
+</div>
+""", unsafe_allow_html=True)
+
+
+# ─────────────────────────────────────────────
+# Barra de passos numerados
+# ─────────────────────────────────────────────
+etapa_atual = 3 if st.session_state.resultado else 2
+
+def step_circle(numero, label, ativo):
+    classe_circulo = "step-circle active" if ativo else "step-circle"
+    classe_label = "step-label active" if ativo else "step-label"
+    return f"""
+    <div class="step-item">
+        <div class="{classe_circulo}">{numero}</div>
+        <div class="{classe_label}">{label}</div>
+    </div>
+    """
+
+st.markdown(f"""
+<div class="steps-bar">
+    {step_circle(1, "Imagem", True)}
+    <div class="step-line"></div>
+    {step_circle(2, "Quiz", etapa_atual >= 2)}
+    <div class="step-line"></div>
+    {step_circle(3, "Resultado", etapa_atual >= 3)}
+</div>
+""", unsafe_allow_html=True)
+
+
+# ─────────────────────────────────────────────
 # Título
 # ─────────────────────────────────────────────
-st.markdown('<p class="main-title"># Gerador Inteligente de Legendas</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Envie sua imagem e responda o questionario para receber legendas personalizadas com IA</p>', unsafe_allow_html=True)
+st.markdown('<p class="main-title">Crie legendas <span class="accent">incriveis</span> para suas redes sociais com IA</p>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">Envie uma imagem, responda algumas perguntas e receba sugestoes de legendas personalizadas para o seu conteudo.</p>', unsafe_allow_html=True)
 
 
 # ─────────────────────────────────────────────
 # Passo 1 — Upload de imagem
 # ─────────────────────────────────────────────
 st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<p class="step-header">Passo 1 — Imagem do post</p>', unsafe_allow_html=True)
+st.markdown('<p class="step-header">Envie a imagem do seu post</p>', unsafe_allow_html=True)
+st.markdown('<p class="step-subtext">Arraste e solte sua imagem aqui ou clique para selecionar</p>', unsafe_allow_html=True)
 uploaded_file = st.file_uploader(
-    "Envie uma imagem do seu post (opcional)",
+    "Imagem do post (opcional)",
     type=["jpg", "jpeg", "png", "webp"],
-    help="A IA ira analisar a imagem para gerar legendas mais contextuais",
+    label_visibility="collapsed",
     key=f"uploader_{st.session_state.uploader_key}"
 )
 
@@ -247,58 +410,43 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Passo 2 — Quiz
 # ─────────────────────────────────────────────
 st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<p class="step-header">Passo 2 — Sobre o post</p>', unsafe_allow_html=True)
+st.markdown('<p class="step-header">Responda algumas perguntas</p>', unsafe_allow_html=True)
+st.markdown('<p class="step-subtext">Isso vai nos ajudar a criar legendas perfeitas para voce!</p>', unsafe_allow_html=True)
 
-col1, col2 = st.columns(2)
+objetivo = st.selectbox(
+    "Qual o objetivo da publicacao?",
+    options=[
+        "Vender ou promover um produto/servico",
+        "Engajar e interagir com a audiencia",
+        "Educar ou informar o publico",
+        "Inspirar e motivar",
+    ]
+)
 
-with col1:
-    objetivo = st.selectbox(
-        "Objetivo da publicacao",
-        options=[
-            "Vender ou promover um produto/servico",
-            "Engajar e interagir com a audiencia",
-            "Educar ou informar o publico",
-            "Inspirar e motivar",
-        ]
-    )
+tom = st.selectbox(
+    "Qual o estilo da legenda?",
+    options=[
+        "Engracado e descontraido",
+        "Profissional e formal",
+        "Motivacional e inspirador",
+        "Casual e amigavel",
+    ]
+)
 
-with col2:
-    rede_social = st.selectbox(
-        "Rede social",
-        options=["Instagram", "TikTok", "LinkedIn", "Twitter/X"]
-    )
-st.markdown('</div>', unsafe_allow_html=True)
+publico = st.selectbox(
+    "Qual e o seu publico-alvo?",
+    options=[
+        "Jovens (18-25 anos)",
+        "Adultos (26-40 anos)",
+        "Empreendedores e profissionais",
+        "Publico geral",
+    ]
+)
 
-
-# ─────────────────────────────────────────────
-# Passo 3 — Tom e público
-# ─────────────────────────────────────────────
-st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.markdown('<p class="step-header">Passo 3 — Tom e publico</p>', unsafe_allow_html=True)
-
-col3, col4 = st.columns(2)
-
-with col3:
-    tom = st.selectbox(
-        "Tom desejado",
-        options=[
-            "Engracado e descontraido",
-            "Profissional e formal",
-            "Motivacional e inspirador",
-            "Casual e amigavel",
-        ]
-    )
-
-with col4:
-    publico = st.selectbox(
-        "Publico-alvo",
-        options=[
-            "Jovens (18-25 anos)",
-            "Adultos (26-40 anos)",
-            "Empreendedores e profissionais",
-            "Publico geral",
-        ]
-    )
+rede_social = st.selectbox(
+    "Para qual rede social?",
+    options=["Instagram", "TikTok", "LinkedIn", "Twitter/X"]
+)
 
 contexto = st.text_area(
     "Contexto extra (opcional)",
@@ -435,10 +583,22 @@ def exibir_resultados(resultado, image_b64):
     legendas = resultado.get("legendas", [])
 
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.markdown('<p class="step-header">Passo 4 — Suas legendas</p>', unsafe_allow_html=True)
+    st.markdown('<p class="step-header">Suas legendas estao prontas!</p>', unsafe_allow_html=True)
+    st.markdown('<p class="step-subtext">Confira as sugestoes criadas especialmente para voce.</p>', unsafe_allow_html=True)
 
     for i, leg in enumerate(legendas):
-        with st.expander(f"{leg['estilo']}", expanded=True):
+        numero = f"{i+1:02d}"
+        st.markdown(f"""
+        <div class="legenda-card">
+            <div class="legenda-numero">{numero}</div>
+            <div class="legenda-conteudo">
+                <div class="legenda-estilo-tag">{leg['estilo']}</div>
+                <div class="legenda-texto-preview">{leg['texto']}</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        with st.expander(f"Ver pre-visualizacao e copiar — opcao {numero}"):
             st.markdown("**Pre-visualizacao do post**")
             render_post_preview(leg["texto"], hashtags, image_b64)
 
@@ -500,6 +660,7 @@ if st.button("Gerar legendas", type="primary", use_container_width=True):
                 "publico": publico,
                 "contexto": contexto,
             }
+            st.rerun()
         except json.JSONDecodeError:
             st.error("Erro ao interpretar a resposta da IA. Tente novamente.")
         except Exception as e:
