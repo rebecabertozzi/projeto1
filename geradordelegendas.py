@@ -155,8 +155,6 @@ with st.sidebar:
     st.markdown("*Feito com Streamlit + Groq*")
 
 st.markdown('<p class="main-title">✦ Gerador de Legendas</p>', unsafe_allow_html=True)
-st.divider()
-st.markdown('<p class="main-title">Crie legendas incíveis para suas redes sociais com IA</p>', unsafe_allow_html=True)
 st.markdown('<p class="subtitle">Envie sua imagem e responda o questionário para receber legendas personalizadas com IA</p>', unsafe_allow_html=True)
 st.divider()
 
